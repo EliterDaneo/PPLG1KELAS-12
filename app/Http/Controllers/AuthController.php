@@ -20,4 +20,12 @@ class AuthController extends Controller
         }
         return view('belakang.auth.login');
     }
+
+    public function proses(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
+    }
 }

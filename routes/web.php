@@ -57,4 +57,5 @@ Route::controller(KelasController::class)->group(function () {
 
 Route::controller(AuthController::class)->group(function () {
     Route::get('/login', 'index')->name('login');
+    Route::post('/proses', 'proses')->name('proses');
 });
