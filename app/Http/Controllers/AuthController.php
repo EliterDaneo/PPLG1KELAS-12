@@ -27,5 +27,19 @@ class AuthController extends Controller
             'email' => 'required|email',
             'password' => 'required',
         ]);
+        
+        $kredensial = $request->only('email', 'password');
+        if (Auth::attempt($kredensial)) {
+            $request->session()->regenerate();
+            $user = Auth::user();
+            if ($user->level == 'admin') {
+                return redirect()->intended('admin');
+            } elseif ($user->level == 'siswa') {
+                return redirect()->intended('siswa');
+            }
+            return redirect()->intended('login');
+        }
+        return redirect('login')->withInput()
+            ->withErrors('errors', 'Lo sok asik deh main masuk segala!');
     }
 }
