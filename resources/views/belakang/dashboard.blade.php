@@ -44,4 +44,9 @@
 @endpush
 
 @section('isi')
+    @if ($user->level == 'admin')
+        Selamat datang administrator!
+    @elseif($user->level == 'siswa')
+        Selamat datang siswa!
+    @endif
 @endsection

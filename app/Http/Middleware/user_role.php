@@ -19,10 +19,12 @@ class user_role
         if (!Auth::check()) {
             return redirect('/login');
         }
+        
         $user = Auth::user();
         if($user->level == $roles){
             return $next($request);
         }
+        
         return redirect('/login')
         ->with('errors', "Kamu sok asik deh!");
     }

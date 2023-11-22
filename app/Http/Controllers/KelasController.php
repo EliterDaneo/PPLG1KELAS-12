@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Kelas;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
-
+use Illuminate\Support\Facades\Auth;
 
 class KelasController extends Controller
 {
@@ -13,7 +13,8 @@ class KelasController extends Controller
     {
         $judul = "Halaman Data Kelas";
         $kelas = Kelas::all();
-        return view('belakang.kelas.index', compact('judul', 'kelas'));
+        $user = Auth::user();
+        return view('belakang.kelas.index', compact('judul', 'kelas', 'user'));
     }
 
     public function create()

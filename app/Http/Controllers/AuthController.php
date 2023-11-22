@@ -15,7 +15,7 @@ class AuthController extends Controller
             if ($user->level == 'admin') {
                 return redirect()->intended('admin');
             } elseif ($user->level == 'siswa') {
-                return redirect()->intended('siswa');
+                return redirect()->intended('user');
             }
         }
         return view('belakang.auth.login');
@@ -27,7 +27,7 @@ class AuthController extends Controller
             'email' => 'required|email',
             'password' => 'required',
         ]);
-        
+
         $kredensial = $request->only('email', 'password');
         if (Auth::attempt($kredensial)) {
             $request->session()->regenerate();
@@ -35,11 +35,19 @@ class AuthController extends Controller
             if ($user->level == 'admin') {
                 return redirect()->intended('admin');
             } elseif ($user->level == 'siswa') {
-                return redirect()->intended('siswa');
+                return redirect()->intended('user');
             }
             return redirect()->intended('login');
         }
         return redirect('login')->withInput()
             ->withErrors('errors', 'Lo sok asik deh main masuk segala!');
+    }
+
+    public function logout(Request $request)
+    {
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect('/login');
     }
 }

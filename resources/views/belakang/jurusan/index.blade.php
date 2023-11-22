@@ -3,8 +3,13 @@
 @section('isi')
     <div class="card mb-4">
         <div class="card-header">
-            <a href="{{ route('tambahDataMapel') }}" class="btn btn-outline-success"><i class="fas fa-plus me-1"></i> Tambah
-                Data</a>
+            @if ($user->level == 'admin')
+                <a href="{{ route('tambahDataMapel') }}" class="btn btn-outline-success"><i class="fas fa-plus me-1"></i>
+                    Tambah
+                    Data</a>
+            @elseif($user->level == 'siswa')
+                Data Jurusan Utuh
+            @endif
         </div>
         <div class="card-body">
             <table id="datatablesSimple">
@@ -22,12 +27,18 @@
                         <td>K123</td>
                         <td>PPLG</td>
                         <td>
-                            <a href="" title="Edit" class="btn btn-secondary btn-sm"><i
-                                    class="fa-solid fa-pencil"></i></a>
-                            <a href="" title="Lihat" class="btn btn-primary btn-sm"><i
-                                    class="fa-solid fa-eye"></i></a>
-                            <a href="" title="Hapus" class="btn btn-danger btn-sm"><i
-                                    class="fa-solid fa-trash"></i></a>
+                            @if ($user->level == 'admin')
+                                <a href="" title="Edit" class="btn btn-secondary btn-sm"><i
+                                        class="fa-solid fa-pencil"></i></a>
+                                <a href="" title="Lihat" class="btn btn-primary btn-sm"><i
+                                        class="fa-solid fa-eye"></i></a>
+                                <a href="" title="Hapus" class="btn btn-danger btn-sm"><i
+                                        class="fa-solid fa-trash"></i></a>
+                            @elseif($user->level == 'siswa')
+                                <a href="" title="Lihat" class="btn btn-primary btn-sm"><i
+                                        class="fa-solid fa-eye"></i></a>
+                            @endif
+
                         </td>
                     </tr>
                 </tbody>

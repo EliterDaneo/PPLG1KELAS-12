@@ -3,8 +3,13 @@
 @section('isi')
     <div class="card mb-4">
         <div class="card-header">
-            <a href="{{ route('dataKelasCreate') }}" class="btn btn-outline-success"><i class="fas fa-plus me-1"></i> Tambah
-                Data</a>
+            @if ($user->level == 'admin')
+                <a href="{{ route('dataKelasCreate') }}" class="btn btn-outline-success"><i class="fas fa-plus me-1"></i>
+                    Tambah
+                    Data</a>
+            @elseif($user->level == 'siswa')
+                Data Kelas Utuh
+            @endif
         </div>
         <div class="card-body">
             <table id="datatablesSimple">
@@ -27,12 +32,17 @@
                             <td>{{ $k->kode_kelas }}</td>
                             <td>{{ $k->nama_kelas }}</td>
                             <td>
-                                <a href="#modalEdit{{ $k->id }}" data-bs-toggle="modal" title="Edit"
-                                    class="btn btn-secondary btn-sm"><i class="fa-solid fa-pencil"></i></a>
-                                <a href="#modalLihat{{ $k->id }}" data-bs-toggle="modal" title="Lihat"
-                                    class="btn btn-primary btn-sm"><i class="fa-solid fa-eye"></i></a>
-                                <a href="#modalHapus{{ $k->id }}" data-bs-toggle="modal" title="Hapus"
-                                    class="btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i></a>
+                                @if ($user->level == 'admin')
+                                    <a href="#modalEdit{{ $k->id }}" data-bs-toggle="modal" title="Edit"
+                                        class="btn btn-secondary btn-sm"><i class="fa-solid fa-pencil"></i></a>
+                                    <a href="#modalLihat{{ $k->id }}" data-bs-toggle="modal" title="Lihat"
+                                        class="btn btn-primary btn-sm"><i class="fa-solid fa-eye"></i></a>
+                                    <a href="#modalHapus{{ $k->id }}" data-bs-toggle="modal" title="Hapus"
+                                        class="btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i></a>
+                                @elseif($user->level == 'siswa')
+                                    <a href="#modalLihat{{ $k->id }}" data-bs-toggle="modal" title="Lihat"
+                                        class="btn btn-primary btn-sm"><i class="fa-solid fa-eye"></i></a>
+                                @endif
                             </td>
                         </tr>
                     @empty
