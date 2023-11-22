@@ -20,7 +20,8 @@ class KelasController extends Controller
     public function create()
     {
         $judul = "Halaman Tambah Kelas";
-        return view('belakang.kelas.create', compact('judul'));
+        $user = Auth::user();
+        return view('belakang.kelas.create', compact('judul', 'user'));
     }
 
     public function store(Request $request)

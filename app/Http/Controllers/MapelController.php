@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\Auth;
 
 class MapelController extends Controller
 {
-
     public function index()
     {
         $judul = "Halaman Data Mapel";
@@ -18,6 +17,7 @@ class MapelController extends Controller
     public function create()
     {
         $judul = "Halaman Data Mapel";
-        return view('belakang.mapel.create', compact('judul'));
+        $user = Auth::user();
+        return view('belakang.mapel.create', compact('judul', 'user'));
     }
 }
